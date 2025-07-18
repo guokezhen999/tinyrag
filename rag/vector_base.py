@@ -1,7 +1,7 @@
 import json
 from typing import List
 
-from rag.embeddings import BaseEmbeddings, BgeWithAPIEmbedding
+from rag.embeddings import BaseEmbeddings
 
 import os
 import numpy as np
@@ -26,7 +26,7 @@ class VectorStore:
             with open(os.path.join(path, f"{file}_vec.json"), 'w', encoding='utf-8') as f:
                 json.dump(self.vectors, f)
 
-    def load_vector(self, path: str = 'storage', file: str = 'file'):
+    def load_vector(self, path: str = '../storage', file: str = 'file'):
         with open(os.path.join(path, f"{file}_doc.json"), 'r', encoding='utf-8') as f:
             self.document = json.load(f)
         with open(os.path.join(path, f"{file}_vec.json"), 'r', encoding='utf-8') as f:
