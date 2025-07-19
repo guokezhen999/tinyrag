@@ -94,34 +94,34 @@ def should_continue(state: AgentState) -> str:
         print("--- 路由: 未检测到工具调用 (纯文本响应)，结束会话 ---")
         return "end"
 
+if __name__ == '__main__':
+    workflow = StateGraph(AgentState)
 
-workflow = StateGraph(AgentState)
+    workflow.add_node("agent_core", run_agent_core)
+    workflow.add_node("tool_node", execute_tools)
 
-workflow.add_node("agent_core", run_agent_core)
-workflow.add_node("tool_node", execute_tools)
+    workflow.set_entry_point("agent_core")
 
-workflow.set_entry_point("agent_core")
+    # 从 agent_core 节点出发，根据 should_continue 的判断进行条件路由
+    workflow.add_conditional_edges(
+        "agent_core",
+        should_continue,
+        {
+            "continue": "tool_node",
+            "end": END
+        }
+    )
 
-# 从 agent_core 节点出发，根据 should_continue 的判断进行条件路由
-workflow.add_conditional_edges(
-    "agent_core",
-    should_continue,
-    {
-        "continue": "tool_node",
-        "end": END
-    }
-)
+    # 从 tool_node 节点出发，执行完工具后，总是返回 agent_core 节点
+    workflow.add_edge("tool_node", "agent_core")
 
-# 从 tool_node 节点出发，执行完工具后，总是返回 agent_core 节点
-workflow.add_edge("tool_node", "agent_core")
+    app = workflow.compile()
 
-app = workflow.compile()
-
-prompt_1 = "请查询数据库，深度学习中的缩放点积注意力是什么？"
-# prompt_1 = "联网搜索，今天上海的天气。"
-print(f"\n用户: {prompt_1}")
-final_state_1 = app.invoke({"chat_history": [HumanMessage(content=prompt_1)]})
-print(f"\nAgent 最终答案: {final_state_1['chat_history'][-1].content}")
+    prompt_1 = "请查询数据库，深度学习中的缩放点积注意力是什么？"
+    # prompt_1 = "联网搜索，今天上海的天气。"
+    print(f"\n用户: {prompt_1}")
+    final_state_1 = app.invoke({"chat_history": [HumanMessage(content=prompt_1)]})
+    print(f"\nAgent 最终答案: {final_state_1['chat_history'][-1].content}")
 
 
 

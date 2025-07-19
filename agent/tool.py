@@ -7,13 +7,15 @@ from rag.vector_base import VectorStore
 from rag.embeddings import BgeEmbedding
 from rag.llm import PROMPT_TEMPLATE
 
+from config import STORAGE_DIR
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 def get_deep_learning_knowledge(query: str) -> str:
     """ 查询深度学习相关知识，生成提示词。 """
     vector = VectorStore()
-    vector.load_vector(file='d2l')
-    embedding = BgeEmbedding(device='mps')
+    vector.load_vector(path=STORAGE_DIR, file='d2l')
+    embedding = BgeEmbedding(device='cpu')
     content = vector.query(query, EmbeddingModel=embedding, k=1)[0]
     prompt = PROMPT_TEMPLATE['RAG_PROMPT_TEMPLATE'].format(question=query, context=content)
     return prompt

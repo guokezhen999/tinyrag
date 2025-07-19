@@ -1,0 +1,153 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.main-container {
+    display: flex;
+    gap: 20px;
+}
+
+.config-panel,
+.chat-panel {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.config-panel {
+    width: 40%;
+}
+
+.chat-panel {
+    width: 60%;
+}
+
+h2 {
+    color: #444;
+    margin-top: 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.tool-selection label {
+    display: inline-block;
+    margin-right: 15px;
+    font-weight: normal;
+}
+
+#agent-chatbox {
+    border: 1px solid #ddd;
+    height: 500px;
+    overflow-y: scroll;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.message strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.9em;
+}
+
+.message pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+    font-family: inherit;
+    font-size: 1em;
+}
+
+.message.user {
+    background-color: #e7f3ff;
+}
+
+.message.user strong {
+    color: #005bb5;
+}
+
+.message.agent {
+    background-color: #e8f5e9;
+}
+
+.message.agent strong {
+    color: #1e8e3e;
+}
+
+.message.tool {
+    background-color: #fff3e0;
+}
+
+.message.tool strong {
+    color: #e65100;
+}
+
+.message.system {
+    background-color: #f3e5f5;
+    border-left: 4px solid #ab47bc;
+}
+
+.message.system strong {
+    color: #6a1b9a;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}

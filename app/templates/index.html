@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Agent 自动对话</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU07EWHeMOSBcBIJUbP/pDustVy2HE2ds+HBGwCinHayR1a22UrzGGP" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlVwcjNdvIQUhpLo6imJLC2zVlAnEKCmv3I3wfGWZwU" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <h1>Agent 自动对话</h1>
+    <div class="main-container">
+        <div class="config-panel">
+            <h2>对话配置</h2>
+            <form id="config-form">
+                <div class="form-group">
+                    <label for="llm-select">选择模型</label>
+                    <select id="llm-select" name="llm_model">
+                        <option value="Qwen/Qwen3-8B">Qwen3-8B</option>
+                        <option value="Qwen/Qwen3-30B-A3B">Qwen3-30B-A3B</option>
+                        <option value="deepseek-ai/DeepSeek-V3">DeepSeek V3</option>
+                        <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                    </select>
+                </div>
+                <hr>
+                <h3>提问者配置</h3>
+                <div class="form-group">
+                    <label for="asker-name">名称</label>
+                    <input type="text" id="asker-name" name="asker_name" value="提问者">
+                </div>
+                <div class="form-group">
+                    <label for="asker-system-message">系统提示</label>
+                    <textarea id="asker-system-message" name="asker_system_message">你是一个提问者，你需要对于深度学习的知识进行提问，一次只提一个具体问题，回答者是另一个AI。你只需要提问，问题要简洁，不要进行对话的总结。不能有空的提问。</textarea>
+                </div>
+                <hr>
+                <h3>回答者配置</h3>
+                <div class="form-group">
+                    <label for="respondent-name">名称</label>
+                    <input type="text" id="respondent-name" name="respondent_name" value="回答者">
+                </div>
+                <div class="form-group">
+                    <label for="respondent-system-message">系统提示</label>
+                    <textarea id="respondent-system-message" name="respondent_system_message">你是一个回答者，需要根据已有对话和自身知识对提问者提出的问题进行回答。请优先使用你被授予的工具来查找答案，如果工具无法提供答案，再使用你的通用知识。回答要准确、专业，必须要有输出，不能有空的回复。</textarea>
+                </div>
+                <div class="form-group">
+                    <label>可用工具</label>
+                    <div class="tool-selection">
+                        <label><input type="checkbox" name="tools" value="d2l_tool" checked> D2L 知识库</label>
+                        <label><input type="checkbox" name="tools" value="google_search" checked> 联网搜索</label>
+                    </div>
+                </div>
+                <hr>
+                <h3>对话控制</h3>
+                <div class="form-group">
+                    <label for="max-turns">最大对话轮数</label>
+                    <input type="number" id="max-turns" name="max_turns" value="3" min="1" max="10">
+                </div>
+                <div class="form-group">
+                    <label for="initial-prompt">初始提示词</label>
+                    <textarea id="initial-prompt" name="initial_prompt"></textarea>
+                </div>
+                <button type="button" id="start-btn">开始对话</button>
+            </form>
+        </div>
+
+        <!-- 聊天面板 -->
+        <div class="chat-panel">
+            <h2>实时对话</h2>
+            <div id="agent-chatbox">
+                <div class="message system"><strong>系统:</strong>在左侧配置好参数后，点击“开始对话”按钮。</div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/main.js" defer></script>
+</body>
+
+</html>
