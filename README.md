@@ -6,8 +6,13 @@
 
 - **模块化 RAG 核心**: 将 RAG 流程解耦为独立的模块（`embeddings`, `llm`, `reranker`, `vector_base`），方便单独替换和优化。
 - **双 Agent 对话系统**: 内置两个 Agent (`Asker` 和 `Respondent`) 进行多轮对话。`Respondent` Agent 能够根据需要调用外部工具来辅助回答。
-- **Web 用户界面**: 提供一个简单的前端界面 (`app/`)，用于与 RAG 系统进行交互和展示结果。
-- **Jupyter Notebook 示例**: 在 `script/` 目录下提供了 Notebook (`tinyrag.ipynb`)，用于快速实验和演示。
+- **Web 用户界面**: 提供一个简单的前端界面 (`app/`)，用于 RAG 进行提问和对话的演示，可以自定义对话的内容，以及回答者可调用的工具。使用 flask 框架进行前后端的路由。
+
+### LangGraph 构建的对话智能体的结构图
+![智能体的结构图](image/structure.png)
+
+### 运行界面示例
+![运行界面示例](image/example.png)
 
 ## ⚙️ 项目结构
 
